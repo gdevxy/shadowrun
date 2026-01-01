@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+<head>
+	<title>Locations - ShadowRun GM</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<!-- Header Stats -->
+		<div class="status-bar mb-4">
+			<div class="status-card glass-panel-sm">
+				<div>
+					<div class="status-card-label">Mapped Locations</div>
+					<div class="status-card-value" th:text="${locationCount}">0</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Locations Grid -->
+		<div th:if="${locations != null && !locations.isEmpty()}" class="location-grid">
+			<div th:each="location : ${locations}" class="location-card glass-panel">
+				<div class="location-card-header">
+					<h4 class="location-card-name" th:text="${location.name}">Location Name</h4>
+					<span class="badge-status badge-active" th:text="${location.type}">Type</span>
+				</div>
+				<p class="location-card-description" th:text="${location.description}">
+					Location description goes here...
+				</p>
+				<div class="location-card-footer">
+					<small class="text-muted">
+						<i class="fas fa-map-marker-alt me-1"></i>
+						<span th:text="${location.district}">District</span>
+					</small>
+					<button class="btn-fui-sm">
+						<i class="fas fa-eye"></i>
+						Details
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- No Locations State -->
+		<div th:unless="${locations != null && !locations.isEmpty()}" class="glass-panel p-5 text-center">
+			<i class="fas fa-map-marked-alt text-warning mb-3" style="font-size: 3rem;"></i>
+			<h3 class="mb-3">No Locations Mapped</h3>
+			<p class="text-muted mb-4">Start mapping locations to build your campaign world.</p>
+			<button class="btn-fui">
+				<i class="fas fa-plus me-2"></i>
+				Add Location
+			</button>
+		</div>
+
+	</div>
+</body>
+</html>

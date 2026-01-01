@@ -25,6 +25,8 @@ public class DashboardController {
 		var npcCharacters = characterService.findNPCCharacters();
 		var locations = locationService.findAllLocations();
 
+		model.addAttribute("pageTitle", "Dashboard");
+		model.addAttribute("currentPage", "dashboard");
 		model.addAttribute("activeCampaign", activeCampaign.orElse(null));
 		model.addAttribute("playerCharacters", playerCharacters);
 		model.addAttribute("npcCharacters", npcCharacters);

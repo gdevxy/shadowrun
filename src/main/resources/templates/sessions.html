@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+<head>
+	<title>Session Logs - ShadowRun GM</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<!-- Header Stats -->
+		<div class="status-bar mb-4">
+			<div class="status-card glass-panel-sm">
+				<div>
+					<div class="status-card-label">Total Sessions</div>
+					<div class="status-card-value" th:text="${sessionCount}">0</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Sessions List -->
+		<div th:if="${sessions != null && !sessions.isEmpty()}" class="card">
+			<div class="card-header">
+				<h3>
+					<i class="fas fa-clipboard-list text-accent"></i>
+					Session History
+				</h3>
+				<span class="badge" th:text="${sessionCount}">0</span>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="data-table">
+						<thead>
+							<tr>
+								<th>Session #</th>
+								<th>Title</th>
+								<th>Date</th>
+								<th>Summary</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="session, iterStat : ${sessions}">
+								<td>
+									<strong class="text-primary" th:text="${iterStat.count}">1</strong>
+								</td>
+								<td th:text="${session.title}">Session Title</td>
+								<td th:text="${#temporals.format(session.sessionDate, 'dd MMM yyyy')}">01 Jan 2026</td>
+								<td>
+									<small class="text-muted" th:text="${#strings.abbreviate(session.summary, 100)}">
+										Summary text...
+									</small>
+								</td>
+								<td>
+									<button class="btn-fui-sm">
+										<i class="fas fa-eye"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- No Sessions State -->
+		<div th:unless="${sessions != null && !sessions.isEmpty()}" class="glass-panel p-5 text-center">
+			<i class="fas fa-book text-warning mb-3" style="font-size: 3rem;"></i>
+			<h3 class="mb-3">No Sessions Recorded</h3>
+			<p class="text-muted mb-4">Start logging your shadowruns to build your campaign history.</p>
+			<button class="btn-fui">
+				<i class="fas fa-plus me-2"></i>
+				New Session Log
+			</button>
+		</div>
+
+	</div>
+</body>
+</html>

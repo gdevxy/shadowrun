@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+<head>
+	<title>Active Campaign - ShadowRun GM</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div th:if="${activeCampaign != null}">
+			<!-- Campaign Header -->
+			<div class="glass-panel campaign-header mb-4">
+				<h2 class="campaign-title" th:text="${activeCampaign.title}">Campaign Title</h2>
+				<p class="text-muted mb-3" th:text="${activeCampaign.description}">
+					Campaign description goes here...
+				</p>
+				<div class="campaign-meta">
+					<div class="campaign-meta-item">
+						<div class="campaign-meta-label">Status</div>
+						<div class="campaign-meta-value">
+							<span class="badge-status badge-active" th:text="${activeCampaign.status}">ACTIVE</span>
+						</div>
+					</div>
+					<div class="campaign-meta-item">
+						<div class="campaign-meta-label">Created</div>
+						<div class="campaign-meta-value" th:text="${#temporals.format(activeCampaign.createdAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 12:00</div>
+					</div>
+					<div class="campaign-meta-item">
+						<div class="campaign-meta-label">Last Updated</div>
+						<div class="campaign-meta-value" th:text="${#temporals.format(activeCampaign.updatedAt, 'dd MMM yyyy HH:mm')}">01 Jan 2026 12:00</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Campaign Actions -->
+			<div class="glass-panel p-4 mb-4">
+				<h3 class="mb-3">
+					<i class="fas fa-cog text-accent"></i>
+					Campaign Management
+				</h3>
+				<div class="d-flex gap-3 flex-wrap">
+					<button class="btn-fui">
+						<i class="fas fa-edit me-2"></i>
+						Edit Campaign
+					</button>
+					<button class="btn-fui">
+						<i class="fas fa-clipboard-list me-2"></i>
+						View Sessions
+					</button>
+					<button class="btn-fui">
+						<i class="fas fa-users me-2"></i>
+						Manage Personnel
+					</button>
+					<button class="btn-fui">
+						<i class="fas fa-pause me-2"></i>
+						Pause Campaign
+					</button>
+				</div>
+			</div>
+
+			<!-- Campaign Statistics -->
+			<div class="stat-grid">
+				<div class="stat-card glass-panel">
+					<div class="stat-card-icon">
+						<i class="fas fa-book-open"></i>
+					</div>
+					<div class="stat-card-value">0</div>
+					<div class="stat-card-label">Total Sessions</div>
+				</div>
+				<div class="stat-card glass-panel">
+					<div class="stat-card-icon">
+						<i class="fas fa-user-shield"></i>
+					</div>
+					<div class="stat-card-value">0</div>
+					<div class="stat-card-label">Active Runners</div>
+				</div>
+				<div class="stat-card glass-panel">
+					<div class="stat-card-icon">
+						<i class="fas fa-skull-crossbones"></i>
+					</div>
+					<div class="stat-card-value">0</div>
+					<div class="stat-card-label">Threats Tracked</div>
+				</div>
+				<div class="stat-card glass-panel">
+					<div class="stat-card-icon">
+						<i class="fas fa-map-marker-alt"></i>
+					</div>
+					<div class="stat-card-value">0</div>
+					<div class="stat-card-label">Known Locations</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- No Campaign State -->
+		<div th:unless="${activeCampaign != null}" class="glass-panel p-5 text-center">
+			<i class="fas fa-exclamation-triangle text-warning mb-3" style="font-size: 3rem;"></i>
+			<h3 class="mb-3">No Active Campaign</h3>
+			<p class="text-muted mb-4">Initialize a new campaign to begin tracking sessions and characters.</p>
+			<button class="btn-fui">
+				<i class="fas fa-plus me-2"></i>
+				Create Campaign
+			</button>
+		</div>
+
+	</div>
+</body>
+</html>

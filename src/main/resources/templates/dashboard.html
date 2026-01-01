@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+<head>
+	<title>Dashboard - Shadowrun GM</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- Campaign Status Card -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="cyber-card campaign-card">
+					<div class="card-header-cyber">
+						<i class="fas fa-broadcast-tower"></i>
+						<span>ACTIVE CAMPAIGN</span>
+					</div>
+					<div class="card-body-cyber">
+						<div th:if="${activeCampaign != null}">
+							<h2 class="campaign-title" th:text="${activeCampaign.title}">Seattle 2082</h2>
+							<p class="campaign-description" th:text="${activeCampaign.description}">Campaign description</p>
+							<div class="campaign-meta">
+								<span class="status-badge" th:text="${activeCampaign.status}">ACTIVE</span>
+							</div>
+						</div>
+						<div th:unless="${activeCampaign != null}" class="no-campaign">
+							<i class="fas fa-exclamation-triangle"></i>
+							<p>NO ACTIVE CAMPAIGN DETECTED</p>
+							<a href="/campaign/new" class="btn-cyber">Initialize New Campaign</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Stats Grid -->
+		<div class="row mb-4">
+			<div class="col-md-3 mb-3">
+				<div class="cyber-card stat-card">
+					<div class="stat-icon sessions">
+						<i class="fas fa-clipboard-list"></i>
+					</div>
+					<div class="stat-content">
+						<h3 class="stat-number" th:text="${sessionCount}">0</h3>
+						<p class="stat-label">Sessions Logged</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 mb-3">
+				<div class="cyber-card stat-card">
+					<div class="stat-icon players">
+						<i class="fas fa-users"></i>
+					</div>
+					<div class="stat-content">
+						<h3 class="stat-number" th:text="${playerCount}">0</h3>
+						<p class="stat-label">Active Runners</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 mb-3">
+				<div class="cyber-card stat-card">
+					<div class="stat-icon npcs">
+						<i class="fas fa-skull-crossbones"></i>
+					</div>
+					<div class="stat-content">
+						<h3 class="stat-number" th:text="${npcCount}">0</h3>
+						<p class="stat-label">NPCs Catalogued</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 mb-3">
+				<div class="cyber-card stat-card">
+					<div class="stat-icon locations">
+						<i class="fas fa-map-marked-alt"></i>
+					</div>
+					<div class="stat-content">
+						<h3 class="stat-number" th:text="${locationCount}">0</h3>
+						<p class="stat-label">Sprawl Sectors</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Player Characters Table -->
+		<div class="row mb-4" th:if="${playerCharacters != null && !playerCharacters.isEmpty()}">
+			<div class="col-12">
+				<div class="cyber-card">
+					<div class="card-header-cyber">
+						<i class="fas fa-user-shield"></i>
+						<span>ACTIVE SHADOWRUNNERS</span>
+					</div>
+					<div class="card-body-cyber">
+						<div class="table-responsive">
+							<table class="cyber-table">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Archetype</th>
+										<th>Race</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="character : ${playerCharacters}">
+										<td th:text="${character.name}">Razor</td>
+										<td th:text="${character.archetype}">Street Samurai</td>
+										<td th:text="${character.race}">Human</td>
+										<td>
+											<span class="status-badge status-active" th:text="${character.status}">Active</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Recent NPCs -->
+		<div class="row" th:if="${npcCharacters != null && !npcCharacters.isEmpty()}">
+			<div class="col-12">
+				<div class="cyber-card">
+					<div class="card-header-cyber">
+						<i class="fas fa-users-cog"></i>
+						<span>RECENT CONTACTS & THREATS</span>
+					</div>
+					<div class="card-body-cyber">
+						<div class="row">
+							<div class="col-md-4 mb-3" th:each="npc, iterStat : ${npcCharacters}" th:if="${iterStat.index < 6}">
+								<div class="npc-card">
+									<h4 class="npc-name" th:text="${npc.name}">Mr. Johnson</h4>
+									<p class="npc-archetype" th:text="${npc.archetype}">Corporate Fixer</p>
+									<small class="npc-race" th:text="${npc.race}">Human</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

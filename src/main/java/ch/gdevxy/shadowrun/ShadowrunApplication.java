@@ -2,11 +2,13 @@ package ch.gdevxy.shadowrun;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jdbc.repository.config.EnableJdbcAuditing;
 
 @SpringBootApplication
+@EnableJdbcAuditing
 public class ShadowrunApplication {
 
-	static void main(String[] args) {
+	public static void main(String[] args) {
 		SpringApplication.run(ShadowrunApplication.class, args);
 	}
 

@@ -16,6 +16,7 @@ class LocationServiceImpl implements LocationService {
 
 	@Override
 	public List<Location> findAllLocations() {
+
 		return StreamSupport.stream(locationRepository.findAll().spliterator(), false)
 			.map(this::toModel)
 			.toList();
@@ -23,22 +24,22 @@ class LocationServiceImpl implements LocationService {
 
 	@Override
 	public Location save(Location model) {
-		LocationEntity entity = new LocationEntity(
-			model.id(),
-			model.title(),
-			model.body(),
-			model.createdAt(),
-			model.updatedAt()
-		);
-		LocationEntity saved = locationRepository.save(entity);
-		return toModel(saved);
+
+		var entity = locationRepository.findById(model.id()).orElseGet(LocationEntity::new);
+
+		entity.setTitle(model.title());
+		entity.setLocation(model.location());
+		entity.setType(model.type());
+
+		return toModel(locationRepository.save(entity));
 	}
 
 	private Location toModel(LocationEntity entity) {
 		return new Location(
 			entity.getId(),
 			entity.getTitle(),
-			entity.getBody(),
+			entity.getType(),
+			entity.getLocation(),
 			entity.getCreatedAt(),
 			entity.getUpdatedAt()
 		);

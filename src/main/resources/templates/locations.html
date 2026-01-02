@@ -21,16 +21,16 @@
 		<div th:if="${locations != null && !locations.isEmpty()}" class="location-grid">
 			<div th:each="location : ${locations}" class="location-card glass-panel">
 				<div class="location-card-header">
-					<h4 class="location-card-name" th:text="${location.name}">Location Name</h4>
-					<span class="badge-status badge-active" th:text="${location.type}">Type</span>
+					<h4 class="location-card-name" th:text="${location.title}">Location Name</h4>
+					<!--<span class="badge-status badge-active" th:text="${location.type}">Type</span>-->
 				</div>
-				<p class="location-card-description" th:text="${location.description}">
+				<p class="location-card-description" th:text="${location.body}">
 					Location description goes here...
 				</p>
 				<div class="location-card-footer">
 					<small class="text-muted">
 						<i class="fas fa-map-marker-alt me-1"></i>
-						<span th:text="${location.district}">District</span>
+						<!--<span th:text="${location.district}">District</span>-->
 					</small>
 					<button class="btn-fui-sm">
 						<i class="fas fa-eye"></i>

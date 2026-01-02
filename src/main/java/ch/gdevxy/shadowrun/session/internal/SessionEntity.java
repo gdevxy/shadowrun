@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table("session")
@@ -25,6 +26,9 @@ class SessionEntity {
 
 	@Column("session_number")
 	private Integer sessionNumber;
+
+	@Column("session_date")
+	private LocalDate sessionDate;
 
 	@Column("log")
 	private String log;

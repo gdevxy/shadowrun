@@ -26,6 +26,7 @@ class SessionServiceImpl implements SessionService {
 			model.id(),
 			model.campaignId(),
 			model.sessionNumber(),
+			model.sessionDate(),
 			model.log(),
 			model.createdAt(),
 			model.updatedAt()
@@ -39,6 +40,7 @@ class SessionServiceImpl implements SessionService {
 			entity.getId(),
 			entity.getCampaignId(),
 			entity.getSessionNumber(),
+			entity.getSessionDate(),
 			entity.getLog(),
 			entity.getCreatedAt(),
 			entity.getUpdatedAt()

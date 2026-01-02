@@ -4,13 +4,19 @@ import java.time.LocalDateTime;
 
 public record Character(
 	Long id,
-	String title,
-	String race,
+	Gender gender,
+	String metatype,
+	String alias,
 	String name,
 	CharacterType type,
 	String archetype,
-	String status,
+	CharacterStatus status,
 	LocalDateTime createdAt,
 	LocalDateTime updatedAt
 ) {
+
+	public boolean active() {
+		return status == CharacterStatus.ALIVE;
+	}
+
 }

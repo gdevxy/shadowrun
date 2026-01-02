@@ -1,6 +1,8 @@
 package ch.gdevxy.shadowrun.character.internal;
 
+import ch.gdevxy.shadowrun.character.CharacterStatus;
 import ch.gdevxy.shadowrun.character.CharacterType;
+import ch.gdevxy.shadowrun.character.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,11 +23,14 @@ class CharacterEntity {
 	@Id
 	private Long id;
 
-	@Column("title")
-	private String title;
+	@Column("gender")
+	private Gender gender;
 
-	@Column("race")
-	private String race;
+	@Column("metatype")
+	private String metatype;
+
+	@Column("alias")
+	private String alias;
 
 	@Column("name")
 	private String name;
@@ -37,7 +42,7 @@ class CharacterEntity {
 	private String archetype;
 
 	@Column("status")
-	private String status;
+	private CharacterStatus status;
 
 	@CreatedDate
 	@Column("created_at")

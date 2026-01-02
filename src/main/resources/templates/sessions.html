@@ -24,7 +24,7 @@
 					<i class="fas fa-clipboard-list text-accent"></i>
 					Session History
 				</h3>
-				<span class="badge" th:text="${sessionCount}">0</span>
+				<span class="badge badge-primary" th:text="${sessionCount}">0</span>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -39,14 +39,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="session, iterStat : ${sessions}">
+							<tr th:each="s, iterStat : ${sessions}">
 								<td>
-									<strong class="text-primary" th:text="${iterStat.count}">1</strong>
+									<strong class="text-info" th:text="${iterStat.count}">1</strong>
 								</td>
-								<td th:text="${session.title}">Session Title</td>
-								<td th:text="${#temporals.format(session.sessionDate, 'dd MMM yyyy')}">01 Jan 2026</td>
+								<td th:text="${#temporals.format(s.sessionDate, 'dd MMM yyyy')}">01 Jan 2026</td>
 								<td>
-									<small class="text-muted" th:text="${#strings.abbreviate(session.summary, 100)}">
+									<small class="text-muted" th:text="${#strings.abbreviate(s.log, 100)}">
 										Summary text...
 									</small>
 								</td>

@@ -17,6 +17,7 @@ class CharacterServiceImpl implements CharacterService {
 
 	@Override
 	public List<Character> findAllCharacters() {
+
 		return StreamSupport.stream(characterRepository.findAll().spliterator(), false)
 			.map(this::toModel)
 			.toList();
@@ -24,6 +25,7 @@ class CharacterServiceImpl implements CharacterService {
 
 	@Override
 	public List<Character> findPlayerCharacters() {
+
 		return characterRepository.findByType(CharacterType.PLAYER).stream()
 			.map(this::toModel)
 			.toList();
@@ -38,26 +40,26 @@ class CharacterServiceImpl implements CharacterService {
 
 	@Override
 	public Character save(Character model) {
-		CharacterEntity entity = new CharacterEntity(
-			model.id(),
-			model.title(),
-			model.race(),
-			model.name(),
-			model.type(),
-			model.archetype(),
-			model.status(),
-			model.createdAt(),
-			model.updatedAt()
-		);
-		CharacterEntity saved = characterRepository.save(entity);
-		return toModel(saved);
+
+		var entity = characterRepository.findById(model.id()).orElseGet(CharacterEntity::new);
+
+		entity.setGender(model.gender());
+		entity.setMetatype(model.metatype());
+		entity.setAlias(model.alias());
+		entity.setName(model.name());
+		entity.setType(model.type());
+		entity.setArchetype(model.archetype());
+		entity.setStatus(model.status());
+
+		return toModel(characterRepository.save(entity));
 	}
 
 	private Character toModel(CharacterEntity entity) {
 		return new Character(
 			entity.getId(),
-			entity.getTitle(),
-			entity.getRace(),
+			entity.getGender(),
+			entity.getMetatype(),
+			entity.getAlias(),
 			entity.getName(),
 			entity.getType(),
 			entity.getArchetype(),

@@ -1,6 +1,7 @@
 package ch.gdevxy.shadowrun.location.internal;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,8 +12,9 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Table("location")
 @Data
+@Builder
+@Table("location")
 @NoArgsConstructor
 @AllArgsConstructor
 class LocationEntity {
@@ -23,8 +25,11 @@ class LocationEntity {
 	@Column("title")
 	private String title;
 
-	@Column("body")
-	private String body;
+	@Column("type")
+	private String type;
+
+	@Column("location")
+	private String location;
 
 	@CreatedDate
 	@Column("created_at")
